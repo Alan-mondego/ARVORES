@@ -88,7 +88,7 @@ Aluno* buscarAluno(Aluno* raiz, char* nomeAluno) {
 
 float calcularDescontoNivel(int nivel) {
     switch(nivel) {
-        case 0: return 5.0f;  /: 5%
+        case 0: return 5.0f;
         case 1: return 4.0f;
         case 3: return 2.0f;
         case 4: return 1.0f;
@@ -178,18 +178,16 @@ void propagarDescontos(Aluno* aluno) {
 void atualizarDescontosAcima(Aluno* aluno) {
     if (!aluno) return;
 
-
+    // Primeiro, define o desconto do aluno que fez a indicação direta
     aluno->desconto = 5.0f;
-
-
+    
+    // Agora sobe na árvore atualizando os descontos
     Aluno* atual = aluno->pai;
-    int nivel = 1;
-
-    while (atual != NULL && nivel < 5) {
-        float descontoNivel = calcularDescontoNivel(nivel);
-
-        atual->desconto += descontoNivel;
-
+    float descontos[] = {4.0f, 3.0f, 2.0f, 1.0f}; // Descontos para cada nível acima
+    int nivel = 0;  // Índice para o array de descontos
+    
+    while (atual != NULL && nivel < 4) {
+        atual->desconto += descontos[nivel];
         atual = atual->pai;
         nivel++;
     }
@@ -448,24 +446,24 @@ void processarPagamento(ArvoreAlunos* arvore) {
     char nomeAluno[MAX_NOME];
     printf("Digite o nome do cliente: ");
     lerString(nomeAluno, MAX_NOME);
-
+    
     Aluno* aluno = buscarAluno(arvore->raiz, nomeAluno);
     if (aluno == NULL) {
         printf("Cliente nao encontrado!\n");
         return;
     }
-
+    
     float valorOriginal = arvore->mensalidade;
     float desconto = aluno->desconto;
     float valorComDesconto = valorOriginal * (1 - desconto/100);
-
+    
     printf("\n=== Processamento de Pagamento ===\n");
     printf("Cliente: %s\n", aluno->nome);
     printf("Valor da mensalidade: R$ %.2f\n", valorOriginal);
     printf("Desconto acumulado: %.1f%%\n", desconto);
     printf("Valor a pagar: R$ %.2f\n", valorComDesconto);
     printf("Valor economizado: R$ %.2f\n", valorOriginal - valorComDesconto);
-
+    
     printf("\nPressione ENTER para continuar...");
     getchar();
 }
