@@ -1,18 +1,19 @@
 # depslib dependency file v1.0
-1742176617 source:c:\users\alanm\onedrive\desktop\atvets\arvores desconto\main.c
+1742217214 source:c:\users\alanm\onedrive\desktop\atvets\arvores desconto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
 	"aluno.h"
 	<locale.h>
 
-1742176590 c:\users\alanm\onedrive\desktop\atvets\arvores desconto\aluno.h
+1742217186 c:\users\alanm\onedrive\desktop\atvets\arvores desconto\aluno.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<ctype.h>
 	<locale.h>
 
-1742171491 source:c:\users\alanm\onedrive\desktop\atvets\arvores desconto\aluno.c
+1742217013 source:c:\users\alanm\onedrive\desktop\atvets\arvores desconto\aluno.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

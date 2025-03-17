@@ -6,13 +6,21 @@
 
 int main() {
     setlocale(LC_ALL,"Portuguese");
-    printf("=== CONFIGURACAO INICIAL DA ACADEMIA ===\n");
-    float mensalidade = lerValorMensalidade();
-    
-    ArvoreAlunos* arvore = criarArvore(mensalidade);
+    printf("=== BEM VINDO ===\n");
+
+    // Cria a árvore com mensalidade inicial
+    ArvoreAlunos* arvore = criarArvore(0);
     if (!arvore) {
         printf("Erro ao criar a arvore!\n");
         return 1;
+    }
+
+    // Tenta carregar alunos existentes
+    carregarAlunos(arvore);
+
+    // Se não houver alunos carregados, pede a mensalidade
+    if (!arvore->raiz) {
+        arvore->mensalidade = lerValorMensalidade();
     }
 
     int opcao;
@@ -25,12 +33,17 @@ int main() {
                 processarMatricula(arvore);
                 break;
             case 2:
-                processarVisualizacao(arvore);
+                processarVisualizacaoCompleta(arvore);
                 break;
             case 3:
-                mostrarValorDesconto(arvore);
+                processarVisualizacao(arvore);
+                break;
+            case 4:
+                processarPagamento(arvore);
                 break;
             case 0:
+                printf("Salvando dados...\n");
+                salvarAlunos(arvore);
                 printf("Saindo do programa...\n");
                 break;
             default:

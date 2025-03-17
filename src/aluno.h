@@ -4,44 +4,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<locale.h>
+#include <ctype.h>
+#include <locale.h>
 #define MAX_NOME 50
+#define MAX_FILHOS 100
+#define ARQUIVO_ALUNOS "alunos.txt"
 
-// Estrutura para representar um aluno
+
 typedef struct Aluno {
     char nome[MAX_NOME];
-    struct Aluno* filhos[100];
+    struct Aluno* filhos[MAX_FILHOS];
     int num_filhos;
     float desconto;
     struct Aluno* pai;
 } Aluno;
 
-// Estrutura para gerenciar a arvore
+
 typedef struct {
     Aluno* raiz;
     float mensalidade;
 } ArvoreAlunos;
 
-// Funcoes de manipulacao de alunos
-Aluno* criarAluno(char* nome);
-Aluno* buscarAluno(Aluno* raiz, char* nome);
-int matricularAluno(ArvoreAlunos* arvore, char* nome, char* indicador);
-void imprimirSubArvore(Aluno* aluno, int nivel, float mensalidade);
 
-// Funcoes do menu
-void exibirMenu(void);
-void processarMatricula(ArvoreAlunos* arvore);
-void processarVisualizacao(ArvoreAlunos* arvore);
+ArvoreAlunos* criarArvore(float mensalidade);
+Aluno* criarAluno(char* nomeAluno);
+Aluno* buscarAluno(Aluno* raiz, char* nomeAluno);
+int matricularAluno(ArvoreAlunos* arvore, char* nomeAluno, char* nomeIndicador);
+
+
+void imprimirArvoreCompleta(Aluno* raiz, int nivel);
+void imprimirSubArvore(Aluno* aluno, int nivel, float mensalidade);
+void processarVisualizacaoCompleta(ArvoreAlunos* arvore);
 void mostrarValorDesconto(ArvoreAlunos* arvore);
 
-// Funcoes auxiliares
-void toLowerCase(char* str);
-void limparBuffer(void);
-int lerInteiro(void);
-int lerString(char* buffer, int tamanho);
-float lerValorMensalidade(void);
+void exibirMenu();
+void processarMatricula(ArvoreAlunos* arvore);
+void processarVisualizacao(ArvoreAlunos* arvore);
+void processarPagamento(ArvoreAlunos* arvore);
 
-// Funcao para inicializar a arvore
-ArvoreAlunos* criarArvore(float mensalidade);
+
+void toLowerCase(char* str);
+void limparBuffer();
+int lerInteiro();
+int lerString(char* buffer, int tamanho);
+float lerValorMensalidade();
+
+
+void salvarAlunos(ArvoreAlunos* arvore);
+void carregarAlunos(ArvoreAlunos* arvore);
 
 #endif
